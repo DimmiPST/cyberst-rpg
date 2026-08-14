@@ -1,10 +1,7 @@
 #prologo do cyberst
-from CYBERSTER_SISTEMAS import funcoes_jogo
+from funcoes_jogo import *
 import time
 
-limpar = funcoes_jogo.limpar #definindo atalhos para as funçoes importadas do modulo
-
-jogador = funcoes_jogo.dados_jogador
 #codigo das cores para auxiliar na criação do jogo
 VERMELHO = "\033[31m"
 VERDE = "\033[32m"
@@ -103,12 +100,13 @@ def prologo2():
 ⣾⠃⠀⡵⡔⠕⠕⡰⡅⠀⢻⡆  Python basico e aprender manipulaçao de arquivo
 ⢹⡆⠘⢴⠙⠑⠉⢳⡱⠀⣾⠁  {VERMELHO} M4$ %̷̻̳͚͚̱͍̭̳͈̥̩̠̓̐̓͌́͌̚̕#̸̛̗͊̃̀̀̔̋̀͛̏́͘͘̕͝  t4lv3z ALg0 t3nh& dado ERr4d0...{AZUL}
 ⠊⠀⠀⠈⡖⡖⡖⡎⠀⠀⠈⠂  {VERMELHO}Eu s0u ryok0...{AZUL}Eu deveria te apresentar ao Projeto  M4s..
-⠀⠀⠀⠀⠉⠁⠉⠁⠀⠀⠀⠀  {VERMELHO}A tecnologia evoluiu muito sabe? principalmente a militar...Entao Boa Sorte
-                 Antes...Vou fazer seu registro """.center(50))
+⠀⠀⠀⠀⠉⠁⠉⠁⠀⠀⠀⠀  {VERMELHO}A tecnologia evoluiu muito sabe? principalmente a militar...Oque tornou
+                 possivel salvar os dados do projeto automaticamente cada vez que você conseguir 
+                 algo importante,Bem  Boa Sorte Antes...Vou fazer seu registro """.center(50))
     print("-"*50)
     time.sleep(2)
     print(f"{AZUL} POR FAVOR PREENCHA SEUS DADOS")
-    exibir = jogador()
+    jogador = dados_jogador()
     print("Aguarde um Momento..")
     time.sleep(2)
     print("Dados Cadastrados com sucesso , adicionei o item exportado CAFÉ no seu inventario")
@@ -116,15 +114,7 @@ def prologo2():
     while True:
         exibirdadosPrologo = input(f"{AZUL}Deseja Exibir seu inventario Antes de começar? :(S/N) ")
         if exibirdadosPrologo.upper() == "S":
-            for c,v in exibir.items():
-                if c != "Itens":
-                    print(f"{c}: {v}")
-                else:
-                    for pos,valor in enumerate(v,start=1):
-                        print(f"Item N˙: {pos}")
-                        print(f"    Nome:{valor['Nome']}")
-                        print(f"    Dano:{valor['Dano']}")
-                        print(f"    Descricao:{valor['Descrição']}")
+            mostrar_dados(jogador)
             break
         elif exibirdadosPrologo.upper() == "N":
             print("Ok ocultando Dados do inventario temporariamente...")
@@ -133,4 +123,4 @@ def prologo2():
             print(f"{VERMELHO}Opçao invalida por favor digite corretamente...")
     print("Certo.. tudo concluido iniciando CYBERST...")
     time.sleep(2)
-    input(f"{VERMELHO}E̷̛̫̖̭̰͕͔͇͇͎͆͒͆̓̂̊̍̽͋ͅŘ̶̨͔̇́̽̿͛̑̉̈́̋̑́̈́R̴̢͔̙̀̌̑O̸̜͔͈̍͗͛̈͌̀̇ ̵̛͇̘͙͕̝̆̒́̉̋̇̍͛̊̐̎͒̋  \n              Pr3s@ @t3 C0mp3l&t4r Pr0j3to ... pr3ss 3nt&r ")
+    input(f"{VERMELHO}E̷̛̫̖̭̰͕͔͇͇͎͆͒͆̓̂̊̍̽͋ͅŘ̶̨͔̇́̽̿͛̑̉̈́̋̑́̈́R̴̢͔̙̀̌̑O̸̜͔͈̍͗͛̈͌̀̇ ̵̛͇̘͙͕̝̆̒́̉̋̇̍͛̊̐̎͒̋  \n             Pr3s@ @t3 C0mp3l&t4r Pr0j3to ... pr3ss 3nt&r")
