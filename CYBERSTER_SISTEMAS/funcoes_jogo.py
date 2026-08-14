@@ -1,5 +1,14 @@
 import subprocess #importando funçoes
 import json
+
+#codigo das cores para auxiliar na criação do jogo
+VERMELHO = "\033[31m"
+VERDE = "\033[32m"
+AMARELO = "\033[33m"
+AZUL = "\033[34m"
+RESET = "\033[0m"
+
+
 def limpar(): #criando funçoes uteis para o jogo para evitar repetir codigo dentro das outras funçoes
     subprocess.run("clear",shell=True)
 def dados_jogador():
@@ -9,7 +18,12 @@ def dados_jogador():
             jogador = json.load(carregar_json)
     except FileNotFoundError: #gerando informaçoes padrao
         jogador["Nome"] = input("Qual Seu Nome?: ")
-        jogador["Sexo"] = input("Qual Seu Genero?: ")
+        while True:
+            jogador["Sexo"] = input(f"{AZUL}Qual Seu Genero?(M/F): ").upper().strip()
+            if jogador["Sexo"] == "M" or jogador["Sexo"] == "F":
+                break
+            else:
+                print(f"{VERMELHO}Digite um formato Valido {RESET}")
         jogador["Itens"] = [
             {"Nome":"Café",
              "Dano":0,
