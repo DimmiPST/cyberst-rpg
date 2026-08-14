@@ -16,6 +16,7 @@ def dados_jogador():
     try: #testando se existe um arquivo (so vai ir pro except na primeira vez)
         with open("jogador.json","r",encoding='utf-8') as carregar_json:
             jogador = json.load(carregar_json)
+            return jogador
     except FileNotFoundError: #gerando informaçoes padrao
         jogador["Nome"] = input("Qual Seu Nome?: ")
         while True:
@@ -32,4 +33,16 @@ def dados_jogador():
         ]
         jogador["Local"] = "Bootcamp"
         jogador["Vida"] = 100
-        return jogador # pra variavel que chamar se tornar um dicionario e poder mecher alterar dados
+        with open("jogador.json","w",encoding="utf-8") as dados_json: #salvando informaçoes padrao em um
+            json.dump(jogador,dados_json,indent=4,ensure_ascii=False) #arquivo .JSON
+        return jogador
+def mostrar_dados(inventario_jogador): #Funcao pra mostrar os dados do usuario inclusive
+    for chave, valor in inventario_jogador.items(): # os itens juntos ,Para deixar a saída mais limpa
+        if chave != "Itens":
+            print(f"{chave}: {valor}")
+        else:
+            for indice, conteudo in enumerate(valor,start=1):
+                print(f"item N•{indice}")
+                print(f"    Nome: {conteudo['Nome']}")
+                print(f"    Dano: {conteudo['Dano']}")
+                print(f"    Descriçao: {conteudo['Descrição']}")
