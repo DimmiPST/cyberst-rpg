@@ -25,9 +25,11 @@ def dados_jogador():
                 break
             else:
                 print(f"{VERMELHO}Digite um formato Valido {RESET}")
-        jogador["Itens"] = [
+        jogador["Itens"] = [ #MAG = magazine/capacidade/muniçao atual CAP = capacidade/muniçao Maxima
             {"Nome":"Café",
              "Dano":0,
+             "MAG":0,
+             "CAP":0,
              "Descrição":"Talvez possa Ser Util em Algum Momento",
              }
         ]
@@ -45,4 +47,6 @@ def mostrar_dados(inventario_jogador): #Funcao pra mostrar os dados do usuario i
                 print(f"item N•{indice}")
                 print(f"    Nome: {conteudo['Nome']}")
                 print(f"    Dano: {conteudo['Dano']}")
+                print(f"    MAG: {conteudo['MAG']}")
+                print(f"    CAP: {conteudo['CAP']}")
                 print(f"    Descriçao: {conteudo['Descrição']}")
