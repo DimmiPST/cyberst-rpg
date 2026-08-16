@@ -33,6 +33,7 @@ def dados_jogador():
              "Descrição":"Talvez possa Ser Util em Algum Momento",
              }
         ]
+        jogador["Item Atual"] = "Nenhum" #fazer push nisso
         jogador["Local"] = "Bootcamp"
         jogador["Vida"] = 100
         with open("jogador.json","w",encoding="utf-8") as dados_json: #salvando informaçoes padrao em um
@@ -40,9 +41,9 @@ def dados_jogador():
         return jogador
 def mostrar_dados(inventario_jogador): #Funcao pra mostrar os dados do usuario inclusive
     for chave, valor in inventario_jogador.items(): # os itens juntos ,Para deixar a saída mais limpa
-        if chave != "Itens":
+        if chave != "Itens" and chave != "Item Atual":
             print(f"{chave}: {valor}")
-        else:
+        elif chave == "Itens":
             for indice, conteudo in enumerate(valor,start=1):
                 print(f"item N•{indice}")
                 print(f"    Nome: {conteudo['Nome']}")
@@ -50,3 +51,8 @@ def mostrar_dados(inventario_jogador): #Funcao pra mostrar os dados do usuario i
                 print(f"    MAG: {conteudo['MAG']}")
                 print(f"    CAP: {conteudo['CAP']}")
                 print(f"    Descriçao: {conteudo['Descrição']}")
+        else: #verificar se  item atual é lista ou string("nenhum item selecionado")
+            if isinstance(inventario_jogador["Item Atual"], dict):
+                print(f"{chave}: {valor['Nome']}")
+            else:
+                print(f"{chave}: {valor}")
