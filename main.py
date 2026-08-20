@@ -2,6 +2,7 @@
 import subprocess  #importando funçoes
 import time
 from CYBERSTER_SISTEMAS import prologo
+from CYBERSTER_SISTEMAS import boot_camp
 #criando funçoes/def
 def limpar():
     subprocess.run("clear",shell=True)
@@ -17,6 +18,7 @@ VERDE = "\033[32m"
 AMARELO = "\033[33m"
 AZUL = "\033[34m"
 RESET = "\033[0m"
+local_player = dict() #dicionario pra receber os locais
 #inicio do codigo
 while True:
     try:
@@ -39,7 +41,10 @@ if escolha_opcaomenu == 1: #sistema de load
 elif escolha_opcaomenu == 2: #game normal
     limpar()
     prologo.prologo1()
-    #implementar prologo2 e cadastro player
+    prologo.prologo2()
+    boot_camp.boot_camp()
+    boot_camp.boot_camp2()
+    boot_camp.boot_camp3()
 else:
     limpar()
     print("-"*30)
