@@ -1,5 +1,6 @@
 from funcoes_jogo import *
 import time
+from inimigos import*
 Jogador_bootcamp = dados_jogador() #Variavel recebedora Do dicionario que guarda as informaçoes do jogador
 #Usada para alterar e modificar dados
 nome_itens = [itens_jogador["Nome"] for itens_jogador in Jogador_bootcamp["Itens"]]
@@ -80,11 +81,11 @@ def boot_camp():
     print(f"Voce:{RESET} um alvo? ok se prepare!!! EU VOU SAIR DESSE PROJETO MALDITO")
     time.sleep(4)
     Jogador_bootcamp["Item Atual"] = Jogador_bootcamp['Itens'][1] #atribuindo Pistola como Item Atual
-    vidaalvo = 180
-    while vidaalvo > 0: #iniciando a introduçao ao combate
+    alvo = alvo_bootcamp()
+    while alvo["Vida"] > 0: #iniciando a introduçao ao combate
         limpar()
         print(f"{AZUL}Visor: [Objetivo]: Elimine o Alvo")
-        print(f"Vida Atual: {vidaalvo}")
+        print(f"Vida Atual: {alvo['Vida']}")
         print("""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⢒⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⠀⠀⠀⠀⠀
@@ -95,27 +96,8 @@ def boot_camp():
 ⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠀⠀⠀⠀⠀""")
-        print(f"Item Atual: {Jogador_bootcamp['Item Atual']['Nome']}")#exibindo o item atual
-        print(f"MAG: {Jogador_bootcamp['Item Atual']['MAG']} / CAP {Jogador_bootcamp['Item Atual']['CAP']}")
-        escolha_alvo = input("Oque voce deseja fazer?1-Atirar 2-Trocar item") #perguntando a escolha do usuario e armazenando ela
-        if escolha_alvo == "1" and Jogador_bootcamp["Item Atual"]["MAG"] > 0: #tratando caso a escolha seja 1 e tenha muniçao
-            vidaalvo -= Jogador_bootcamp['Item Atual']['Dano']
-            Jogador_bootcamp['Item Atual']['MAG'] -= 1
+        menu_combate(dados_combate=Jogador_bootcamp,inimigo=alvo)
 
-        elif escolha_alvo == "1" and Jogador_bootcamp["Item Atual"]["MAG"] == 0: #tratando caso nao tenha muniçao
-            input(f"{VERMELHO} [ERRO] MAG insuficiente selecione outro item (press enter)")
-
-        elif escolha_alvo == "2": #tratando caso a escolha seja 2
-            mostrar_dados(Jogador_bootcamp)
-            while True:
-                try: #mudando o item
-                    indice_item = int(input(f"{AZUL}Informe o Indice do Item que deseja Selecionar"))
-                    Jogador_bootcamp["Item Atual"] = Jogador_bootcamp['Itens'][indice_item-1]
-                    break
-                except ValueError or IndexError: #tratando opçoes invalidas
-                    input(f"{VERMELHO} [ERRO] selecione um indice valido")
-        else:
-            input(f"{VERMELHO} [ERRO] selecione uma opçao valida(press enter)")
 def boot_camp2():
         limpar()
         time.sleep(2)
@@ -194,4 +176,61 @@ def boot_camp3():
     print("PROXIMO AO CENTRO DE PESQUISA".center(30))
     print("-"*30)
     print(f"Você:{RESET}Achei.. vem aqui seu pedaço de lata")
-    #em produçao
+    denj3_boot = denj3()
+    turno_atual = 0
+    while denj3_boot["Vida"] > 0:
+        limpar()
+        print(f"{AZUL}Visor: [Objetivo]: Elimine o mecha infectado")
+        print(f"Turno: {turno_atual}")
+        print(f"Vida Denj-3: {denj3_boot['Vida']}")
+        print("""⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⢾⡿⠛⠋⠛⢿⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡧⣄⣄⢀⣀⡤⣎⣷⢿⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣶⣤⡄⠀⠀⠀⠀⠀⣿⢷⡯⢽⣻⣷⣿⢛⣑⣾⣸⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⣞⡄⠀⠀⠀⠀⣻⣟⣿⣯⡵⣻⢿⣶⣯⣽⣿⣿⣶⣻⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣽⡄⠀⠀⠀⣿⣟⣟⣷⠖⠛⠒⢛⡻⣿⣿⣟⣻⣿⣟⣷⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣹⣿⣿⣹⣀⣀⣀⣿⡿⡙⡬⢟⣶⡞⣥⢟⣽⣻⣻⣿⣯⣅⡀⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣥⣽⣵⣚⡿⣿⣿⣿⣷⣿⣿⣏⢿⢿⡻⢹⣿⣿⣿⡇⠀⣩⢿⣿⣷⣄⠀⠀⠀⢀⣷⡃⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⣰⣿⣽⣻⣿⣿⣿⣿⣿⢴⣿⡧⣿⣿⣿⣿⣴⣿⡡⡄⠒⣻⣿⣷⡄⠀⢸⢻⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣄⡀⠀⠀⣹⣿⣿⣟⣿⣮⣻⣿⣿⣦⣿⣥⢿⣿⣿⣿⣿⣿⣪⣴⣿⣿⣿⣿⣧⣄⡏⡌⡼⡺⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡿⠤⣼⣿⣏⣹⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠺⢽⡿⣟⠫⣝⡳⢟⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡘⣿⣿⢽⣨⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⢱⣿⠛⠁⠀⠀⠈⠳⢽⣪⢍⣶⣟⣳⡄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠛⠛⣿⣷⣃⣿⡟⢨⢛⣿⣿⣿⣿⣿⣿⣿⢻⣽⣦⣼⣧⠀⠀⠀⠀⠀⠀⠀⣽⣿⠿⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣾⣻⠁⡿⢸⡟⡇⠙⢿⣿⠟⣡⡌⢻⣿⣿⣿⣦⣄⣠⣔⣆⣀⣾⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
+        menu_combate(dados_combate=Jogador_bootcamp,inimigo=denj3_boot)
+        print(f"{AZUL}")
+        if turno_atual > 0 and turno_atual % 3 == 0:
+            print("-"*30)
+            print("*O mecha Denj-3 atacou*")
+            print("-"*30)
+            input("(press enter)")
+            Jogador_bootcamp["Vida"] -= denj3_boot["Dano"]
+            turno_atual += 1
+        elif turno_atual != 0:
+            print("-" *50)
+            print("*O mecha Infectado esta preparando um ataque...*")
+            print("-" *50)
+            input("(press enter)")
+            turno_atual += 1
+        else:
+            input("(press enter)")
+            turno_atual += 1
+    limpar()
+    print("Denj-3: he's coming ....")
+    print("-"*30)
+    print("DENJ-3 FOI DERROTADO")
+    print("-"*30)
+    print("*Coronel chega correndo no corredor*")
+    time.sleep(2)
+    print("Coronel: Olha.. voce conseguiu usar essa katana no final das contas")
+    time.sleep(2)
+    print("bem acho que podemos continuar o assunto de mais cedo")
+    time.sleep(2)
+    print("recentemente nosso laboratorio detectou um aumento no numero de Malware ,e eu preciso que voce investigue isso")
+    time.sleep(3)
+    print("Quero que vá ate cyber_district e de uma olhada no que esta havendo,leve a katana com voce, ira precisar")
+    time.sleep(3)
+    print("boa viagem soldado... ate logo ")
+    time.sleep(2)
+    Jogador_bootcamp["Local"] ="cyber_district"
+    with open("jogador.json", "w", encoding="utf-8") as jogadorboot:
+        json.dump(Jogador_bootcamp, jogadorboot, indent=4,ensure_ascii=False)
