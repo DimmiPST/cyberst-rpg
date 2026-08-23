@@ -85,24 +85,26 @@ def menu_combate(dados_combate,inimigo):
         print(f"Vida {dados_combate['Nome']}:{dados_combate['Vida']}")
         print(f"Item Atual: {dados_combate['Item Atual']['Nome']}")  # exibindo o item atual
         print(f"MAG: {dados_combate['Item Atual']['MAG']} / CAP {dados_combate['Item Atual']['CAP']}")
-        escolha_alvo = input(
-            "Oque voce deseja fazer?1-Atirar 2-Trocar item")#armazenando escolha do usuario
+        while True:
+            escolha_alvo = input(
+                f"{AZUL}Oque voce deseja fazer?1-Atirar 2-Trocar item")#armazenando escolha do usuario
 
-        if escolha_alvo == "1" and dados_combate["Item Atual"]["MAG"] > 0:#tratando caso a escolha seja 1 e tenha muniçao
-            inimigo["Vida"] -= dados_combate['Item Atual']['Dano']
-            dados_combate['Item Atual']['MAG'] -= 1
+            if escolha_alvo == "1" and dados_combate["Item Atual"]["MAG"] > 0:#tratando caso a escolha seja 1 e tenha muniçao
+                inimigo["Vida"] -= dados_combate['Item Atual']['Dano']
+                dados_combate['Item Atual']['MAG'] -= 1
+                break
+            elif escolha_alvo == "1" and dados_combate["Item Atual"]["MAG"] == 0:  # tratando caso nao tenha muniçao
+                input(f"{VERMELHO} [ERRO] MAG insuficiente selecione outro item (press enter)")
 
-        elif escolha_alvo == "1" and dados_combate["Item Atual"]["MAG"] == 0:  # tratando caso nao tenha muniçao
-            input(f"{VERMELHO} [ERRO] MAG insuficiente selecione outro item (press enter)")
-
-        elif escolha_alvo == "2":  # tratando caso a escolha seja 2
-            mostrar_dados(dados_combate)
-            while True:
-                try:  # mudando o item
-                    indice_item = int(input(f"{AZUL}Informe o Indice do Item que deseja Selecionar"))
-                    dados_combate["Item Atual"] = dados_combate['Itens'][indice_item - 1]
-                    break
-                except (ValueError , IndexError):  # tratando opçoes invalidas
-                    input(f"{VERMELHO} [ERRO] selecione um indice valido")
-        else:
-            input(f"{VERMELHO} [ERRO] selecione uma opçao valida(press enter)")
+            elif escolha_alvo == "2":  # tratando caso a escolha seja 2
+                mostrar_dados(dados_combate)
+                while True:
+                    try:  # mudando o item
+                        indice_item = int(input(f"{AZUL}Informe o Indice do Item que deseja Selecionar"))
+                        dados_combate["Item Atual"] = dados_combate['Itens'][indice_item - 1]
+                        break
+                    except (ValueError , IndexError):  # tratando opçoes invalidas
+                        input(f"{VERMELHO} [ERRO] selecione um indice valido")
+                break
+            else:
+                input(f"{VERMELHO} [ERRO] selecione uma opçao valida(press enter)")
